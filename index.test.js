@@ -6,14 +6,14 @@ D531134C-E460-66A0-6FEA-CC210C923CCF|Sara|dictum@Praesent.net|2009-07-29T14:30:4
 
 const multilineCols = ['id', 'first', 'last', 'addr', 'job'];
 const multilineRows = [{
-  desc: '2-line csv, extra line-break',
+  desc: 'handles 2-line csv, extra line-break',
   rows: `100,John,Doe,666 Heck Hwy,Cat Herder
 101,John,Doe,123 Main St.
 Denver CO 80123,Acme`.trim().split(/\n/),
   colDelimiter: ',',
   expects: {rows: 2}
 }, {
-  desc: 'Quoted 2-line csv, extra line-break',
+  desc: 'handles 2-line quoted csv, xtra line-break',
   rows: `
 "100","John","Doe","666 Heck Hwy, Kansas City","Cat Herder"
 "101","John","Doe","123 Main St.
@@ -21,14 +21,14 @@ Denver, CO 80123","Acme"`.trim().split(/\n/),
   colDelimiter: '","',
   expects: {rows: 2}
 }, {
-  desc: '2 extra line-breaks',
+  desc: 'handles 2 extra line-breaks',
   rows: `101,John,Doe,Attn: Delivery
 123 Main St.
 Denver CO 80123,Acme`.trim().split(/\n/),
   colDelimiter: ',',
   expects: {rows: 1}
 }, {
-  desc: '3 extra line-breaks',
+  desc: 'handles 1 row on 4 lines, w/ "empty" line',
   rows: `101,John,Doe,Attn: Delivery
 123 Main St.
 
@@ -36,7 +36,7 @@ Denver CO 80123,Acme`.trim().split(/\n/),
   colDelimiter: ',',
   expects: {rows: 1}
 }, {
-  desc: 'Unclear field ending w/ + line break',
+  desc: 'handles 2 row, 4 lines quoted csv w/ trailing delimiter',
   rows: `"100","John","Doe","ATTN: Anon,
 666 Heck Hwy, Kansas City","Cat Herder"
 "101","John","Doe","123 Main St.
@@ -49,41 +49,26 @@ Denver, CO 80123","Acme"`.trim().split(/\n/),
 
 const test   = require('tape');
 const {Parser, _rowReducer} = require('./');
+test('parses well-formatted schema data', t => {
 
-test('test CSV parser on Pipe Delimited Data', t => {
-  //Valid Dates
-  const {rows, cols} = Parser({data: csv1})
+  t.test('handles pipe delimited data', t => {
+    //Valid Dates
+    const {rows, cols} = Parser({data: csv1})
 
-  t.equals(cols.length, 14, 'has 14 cols')
-  t.equals(rows.length, 3, 'has 3 rows')
-  t.true(cols.includes('_id'), 'col _id required')
-  t.true(cols.includes('name'), 'col name required')
-  t.true(cols.includes('email'), 'col email required')
-  t.true(cols.includes('signup'), 'col signup required')
-  t.true(cols.includes('addr1'), 'col addr1 required')
-  t.true(cols.includes('city'), 'col city required')
-  t.true(cols.indexOf('company') === cols.length - 1, 'company is last col')
-  t.end()
+    t.equals(cols.length, 14, 'has 14 cols')
+    t.equals(rows.length, 3, 'has 3 rows')
+    t.true(cols.includes('_id'), 'col _id required')
+    t.true(cols.includes('name'), 'col name required')
+    t.true(cols.includes('email'), 'col email required')
+    t.true(cols.includes('signup'), 'col signup required')
+    t.true(cols.includes('addr1'), 'col addr1 required')
+    t.true(cols.includes('city'), 'col city required')
+    t.true(cols.indexOf('company') === cols.length - 1, 'company is last col')
+    t.end()
+  })
 })
 
-
-test('test CSV parser on Broken Data', t => {
-  //Valid Dates
-  const {rows, cols} = Parser({data: csv1})
-
-  t.equals(cols.length, 14, 'has 14 cols')
-  t.equals(rows.length, 3, 'has 3 rows')
-  t.true(cols.includes('_id'), 'col _id required')
-  t.true(cols.includes('name'), 'col name required')
-  t.true(cols.includes('email'), 'col email required')
-  t.true(cols.includes('signup'), 'col signup required')
-  t.true(cols.includes('addr1'), 'col addr1 required')
-  t.true(cols.includes('city'), 'col city required')
-  t.true(cols.indexOf('company') === cols.length - 1, 'company is last col')
-  t.end()
-})
-
-test('can parse line-breaks', t => {
+test('parses broken row / bad field delimiters', t => {
   const colSize = multilineCols.length;
   multilineRows.forEach(({desc, rows, colDelimiter, expects}) => {
     t.test(desc, t => {
