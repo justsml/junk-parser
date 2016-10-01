@@ -39,7 +39,8 @@ export function Parser({data, columns = []}, opts) {
   findColumns();
   rows = _rowReducer({rows, cols, colDelimiter});
 
-  return {rows, cols, colDelimiter, rowDelimiter}
+  return {rows, cols, colDelimiter, rowDelimiter,
+    overflow: rows[rows.length-1].length !== cols.length ? rows[rows.length-1]}
 }
 
 /**
