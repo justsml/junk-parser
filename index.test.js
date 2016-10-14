@@ -9,7 +9,7 @@ const multilineRows = [{
   desc: 'handles 2-line csv, extra line-break',
   rows: `100,John,Doe,666 Heck Hwy,Cat Herder
 101,John,Doe,123 Main St.
-Denver CO 80123,Cat Whisperer`.trim().split(/\n/),
+Denver CO 80123,Acme`.trim().split(/\n/),
   colDelimiter: ',',
   expects: {rows: 2}
 }, {
@@ -17,22 +17,21 @@ Denver CO 80123,Cat Whisperer`.trim().split(/\n/),
   rows: `
 "100","John","Doe","666 Heck Hwy, Kansas City","Cat Herder"
 "101","John","Doe","123 Main St.
-Denver, CO 80123","Cat Whisperer"`.trim().split(/\n/),
+Denver, CO 80123","Acme"`.trim().split(/\n/),
   colDelimiter: '","',
   expects: {rows: 2}
 }, {
   desc: 'handles 2 extra line-breaks',
   rows: `101,John,Doe,Attn: Delivery
 123 Main St.
-Denver CO 80123,Cat Whisperer`.trim().split(/\n/),
+Denver CO 80123,Acme`.trim().split(/\n/),
   colDelimiter: ',',
   expects: {rows: 1}
 }, {
   desc: 'handles 1 row on 4 lines, w/ "empty" line',
   rows: `101,John,Doe,Attn: Delivery
-123 Main St., Denver, Co
-80122
-,Cat Whisperer`.trim().split(/\n/),
+123 Main St. Denver, Co 80122
+Cat Whisperer`.trim().split(/\n/),
   colDelimiter: ',',
   expects: {rows: 1}
 }, {
@@ -40,7 +39,7 @@ Denver CO 80123,Cat Whisperer`.trim().split(/\n/),
   rows: `"100","John","Doe","ATTN: Anon,
 666 Heck Hwy, Kansas City","Cat Herder"
 "101","John","Doe","123 Main St.
-Denver, CO 80123","Cat Whisperer"`.trim().split(/\n/),
+Denver, CO 80123","Acme"`.trim().split(/\n/),
   colDelimiter: '","',
   expects: {rows: 2}
 }
