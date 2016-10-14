@@ -1,10 +1,15 @@
 # junk-parser - Best-fit, low-RAM CSV Parser
 
-I know, you're probably thinking "not another CSV/?SV parser."
+[![Build Status](https://travis-ci.org/justsml/junk-parser.svg?branch=master)](https://travis-ci.org/justsml/junk-parser)
 
-> "None of them even work exactly like Excel 20xx anyway!?"
+I know, you're thinking "not another CSV/?SV parser!?"
 
-This is a different kind of parser. And a fun experiment. `#DealWithIt`.
+> "None of them even work exactly like Excel 20xx anyway!?!?"
+
+
+Well, this is a different kind of parser.
+And a fun experiment.
+`#DealWithIt`.
 
 It's optimized around a few assumptions - based on _observed common errors_.
 
