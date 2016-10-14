@@ -1,6 +1,10 @@
 # junk-parser - Best-fit, low-RAM CSV Parser
 
 [![Build Status](https://travis-ci.org/justsml/junk-parser.svg?branch=master)](https://travis-ci.org/justsml/junk-parser)
+[![GitHub Stars](https://img.shields.io/github/stars/justsml/junk-parser.svg)](https://github.com/justsml/junk-parser/)
+[![Github Releases](https://img.shields.io/github/downloads/justsml/junk-parser/latest/total.svg?maxAge=1592000)]()
+[![npm](https://img.shields.io/npm/dt/junk-parser.svg?maxAge=1592000)](https://www.npmjs.com/package/junk-parser)
+[![npm](https://img.shields.io/npm/v/junk-parser.svg?maxAge=1592000)](https://www.npmjs.com/package/junk-parser)
 
 I know, you're thinking "not another CSV/?SV parser!?"
 
